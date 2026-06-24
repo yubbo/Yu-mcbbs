@@ -7,10 +7,8 @@ services:
     container_name: bbs-cms-db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root-secret-change-me}
-      MYSQL_DATABASE: ${DB_NAME:-bbs_cms}
-      MYSQL_USER: ${DB_USER:-bbs_cms}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-bbs-cms-pwd}
+      MYSQL_ROOT_PASSWORD: yu-mcbbs-2024
+      MYSQL_DATABASE: bbs_cms
     command: >
       --innodb-buffer-pool-size=32M
       --innodb-log-buffer-size=4M
@@ -21,17 +19,13 @@ services:
       --collation-server=utf8mb4_unicode_ci
     volumes:
       - mysql_data:/var/lib/mysql
-    deploy:
-      resources:
-        limits:
-          memory: 192M
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 10
 
-  # ── 后端（闭源预编译 Go 二进制，从 GitHub Container Registry 拉取） ──
+  # ── 后端（闭源预编译 Go 二进制） ──
   backend:
     image: ghcr.io/yubbo/yu-mcbbs-backend:latest
     container_name: bbs-cms-backend
@@ -40,26 +34,14 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      DB_HOST: mysql
-      DB_PORT: "3306"
-      DB_USER: ${DB_USER:-bbs_cms}
-      DB_PASSWORD: ${DB_PASSWORD:-bbs-cms-pwd}
-      DB_NAME: ${DB_NAME:-bbs_cms}
-      JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
-      LOG_LEVEL: ${LOG_LEVEL:-info}
-      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS:-http://localhost:3000}
       THEMES_DIR: /shared/themes
       PLUGINS_DIR: /shared/plugins
     ports:
-      - "${BACKEND_PORT:-8080}:8080"
-    deploy:
-      resources:
-        limits:
-          memory: 128M
+      - "8080:8080"
     volumes:
       - app_data:/shared
 
-  # ── 前端（Next.js，从 GitHub Container Registry 拉取） ──
+  # ── 前端（Next.js 开源） ──
   frontend:
     image: ghcr.io/yubbo/yu-mcbbs-frontend:latest
     container_name: bbs-cms-frontend
@@ -69,11 +51,7 @@ services:
     environment:
       API_BACKEND_URL: http://backend:8080
     ports:
-      - "${FRONTEND_PORT:-3000}:3000"
-    deploy:
-      resources:
-        limits:
-          memory: 256M
+      - "3000:3000"
     volumes:
       - app_data:/app/themes
 
