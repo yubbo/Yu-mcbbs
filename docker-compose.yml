@@ -25,7 +25,7 @@ services:
       timeout: 5s
       retries: 10
 
-  # ── 后端（闭源预编译 Go 二进制） ──
+  # ── 后端（闭源预编译 Go 二进制，从镜像直接拉取） ──
   backend:
     image: ghcr.io/yubbo/yu-mcbbs-backend:latest
     container_name: bbs-cms-backend
