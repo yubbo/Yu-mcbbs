@@ -10,10 +10,11 @@
 
 ## 快速部署（Docker 一键启动）
 
+> **一次配置，一键拉取镜像即可运行。** 无需安装 Go、Node.js，也无需编译。
+
 ### 前提条件
 
 - 服务器已安装 [Docker](https://docs.docker.com/engine/install/) 和 Docker Compose
-- 确保 80 端口未被占用（或自备 Nginx 反代）
 - 最低配置：512MB 内存，1 核 CPU
 
 ### 第一步：克隆仓库
@@ -26,7 +27,6 @@ cd Yu-mcbbs
 ### 第二步：配置环境变量
 
 ```bash
-# 复制示例配置文件
 cp .env.docker.example .env.docker
 ```
 
@@ -39,16 +39,7 @@ DB_PASSWORD=你的数据库普通用户密码
 JWT_SECRET=一个随机字符串（至少32位）
 ```
 
-生成随机密钥的方式：
-
-```bash
-# Linux / macOS
-openssl rand -hex 32
-
-# 1Panel 面板中可在「终端」执行上述命令
-```
-
-### 第三步：启动
+### 第三步：启动（拉取镜像即可运行）
 
 ```bash
 docker compose up -d
@@ -56,13 +47,12 @@ docker compose up -d
 
 首次启动会自动完成：
 
-1. 拉取 MySQL 镜像
-2. 构建后端镜像（从预编译二进制，无需 Go 环境）
-3. 构建前端镜像（`pnpm build` 生成静态文件）
-4. 初始化数据库（GORM 自动建表）
-5. 初始化默认主题和插件
+1. 从 GitHub Container Registry 拉取前后端预构建镜像（**无需编译**）
+2. 拉取 MySQL 镜像
+3. 初始化数据库（GORM 自动建表）
+4. 初始化默认主题和插件
 
-整个过程约 2-5 分钟，取决于网络速度。
+整个过程约 30 秒 - 1 分钟（取决于网络速度）。
 
 ### 第四步：访问安装向导
 
@@ -72,13 +62,7 @@ docker compose up -d
 http://你的服务器IP:3000
 ```
 
-你会看到 **安装引导页面**，按提示填写：
-
-- **数据库信息**：默认已填入容器内 MySQL，直接点下一步即可
-- **管理员账号**：设置邮箱和密码（第一个注册用户自动成为超级管理员）
-- **站点信息**：站点名称、描述等
-
-安装完成后即可正常使用论坛。
+你会看到 **安装引导页面**，按提示填写信息即可。
 
 ### 各服务地址
 
@@ -197,16 +181,27 @@ docker compose up -d
 
 ## 更新升级
 
-当仓库有新版本时：
+有新版本时，拉取最新镜像即可：
 
 ```bash
 cd Yu-mcbbs
-git pull
-docker compose build --no-cache
-docker compose up -d
+git pull                     # 拉取最新 docker-compose.yml
+docker compose pull          # 拉取最新镜像
+docker compose up -d         # 重启服务
 ```
 
 数据库会自动执行迁移，不影响已有数据。
+
+## 镜像说明
+
+本项目使用 GitHub Actions 自动构建 Docker 镜像，推送到 GitHub Container Registry (ghcr.io)：
+
+| 镜像 | 地址 |
+|------|------|
+| 后端 | `ghcr.io/yubbo/yu-mcbbs-backend:latest` |
+| 前端 | `ghcr.io/yubbo/yu-mcbbs-frontend:latest` |
+
+镜像在每次 push 到 main 分支时自动构建，无需手动操作。
 
 ---
 

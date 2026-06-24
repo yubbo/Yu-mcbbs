@@ -19,8 +19,6 @@ services:
       --max-connections=30
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
-    ports:
-      - "${DB_EXPOSE_PORT:-3306}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     deploy:
@@ -33,11 +31,9 @@ services:
       timeout: 5s
       retries: 10
 
-  # ── 后端（闭源预编译 Go 二进制） ──
+  # ── 后端（闭源预编译 Go 二进制，从 GitHub Container Registry 拉取） ──
   backend:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
+    image: ghcr.io/yubbo/yu-mcbbs-backend:latest
     container_name: bbs-cms-backend
     restart: unless-stopped
     depends_on:
@@ -63,13 +59,9 @@ services:
     volumes:
       - app_data:/shared
 
-  # ── 前端（Next.js 开源） ──
+  # ── 前端（Next.js，从 GitHub Container Registry 拉取） ──
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        API_BACKEND_URL: http://backend:8080
+    image: ghcr.io/yubbo/yu-mcbbs-frontend:latest
     container_name: bbs-cms-frontend
     restart: unless-stopped
     depends_on:
