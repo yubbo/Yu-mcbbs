@@ -16,6 +16,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      package-delete: write
     steps:
       - uses: actions/checkout@v4
 
@@ -45,6 +46,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      package-delete: write
     steps:
       - uses: actions/checkout@v4
 
