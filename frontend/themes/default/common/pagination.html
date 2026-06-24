@@ -1,0 +1,17 @@
+<!-- themes/default/common/pagination.html — 分页 -->
+
+<nav class="mt-8 flex items-center justify-center gap-1 text-sm">
+  <a href="?page={CURRENT_PAGE - 1}" class="rounded-lg px-3 py-1.5 text-zinc-500 no-underline hover:bg-zinc-100 transition-colors">上一页</a>
+  {loop $page_items $item}
+    {if $item.active}
+      <span class="rounded-lg bg-zinc-900 px-3 py-1.5 text-white">{$item.page}</span>
+    {else}
+      {if $item.ellipsis}
+      <span class="px-1 text-zinc-300">...</span>
+      {else}
+      <a href="?page={$item.page}" class="rounded-lg px-3 py-1.5 text-zinc-500 no-underline hover:bg-zinc-100 transition-colors">{$item.page}</a>
+      {/if}
+    {/if}
+  {/loop}
+  <a href="?page={CURRENT_PAGE + 1}" class="rounded-lg px-3 py-1.5 text-zinc-500 no-underline hover:bg-zinc-100 transition-colors">下一页</a>
+</nav>

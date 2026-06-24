@@ -1,0 +1,36 @@
+<!-- themes/default/index.html — 首页门户 -->
+
+{themes common/header.html}
+
+<main class="mx-auto max-w-5xl px-4 py-24">
+  <div class="text-center mb-20">
+    <h1 class="text-4xl font-semibold text-zinc-900 tracking-tight sm:text-5xl">{SITE_NAME}</h1>
+    <p class="mt-4 text-lg text-zinc-500 max-w-xl mx-auto">{SITE_DESCRIPTION}</p>
+    <div class="mt-8 flex items-center justify-center gap-4">
+      <a href="{SITE_URL}/login" class="rounded-xl bg-zinc-900 px-6 py-2.5 text-sm font-medium text-white no-underline hover:bg-zinc-800 transition-colors">立即登录</a>
+      <a href="{SITE_URL}/register" class="rounded-xl border border-zinc-300 px-6 py-2.5 text-sm font-medium text-zinc-700 no-underline hover:bg-zinc-50 transition-colors">注册账号</a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+    <div class="rounded-xl border border-zinc-200 p-8 text-center">
+      <div class="mb-4 text-4xl">📝</div>
+      <h3 class="text-base font-semibold text-zinc-900">博客 CMS</h3>
+      <p class="mt-2 text-sm text-zinc-500">发布文章、管理内容</p>
+    </div>
+
+    <div class="rounded-xl border border-zinc-200 p-8 text-center">
+      <div class="mb-4 text-4xl">💬</div>
+      <h3 class="text-base font-semibold text-zinc-900">论坛 BBS</h3>
+      <p class="mt-2 text-sm text-zinc-500">讨论交流、技术分享</p>
+    </div>
+
+    <div class="rounded-xl border border-zinc-200 p-8 text-center">
+      <div class="mb-4 text-4xl">🎨</div>
+      <h3 class="text-base font-semibold text-zinc-900">主题生态</h3>
+      <p class="mt-2 text-sm text-zinc-500">主题市场、插件扩展</p>
+    </div>
+  </div>
+</main>
+
+{themes common/footer.html}

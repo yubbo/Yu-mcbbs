@@ -1,0 +1,42 @@
+/**
+ * popup_effect_3 — 弹簧弹跳
+ *
+ * 用法：
+ *   遮罩层：class="modal-overlay-3 fixed inset-0 z-50 items-center justify-center bg-black/40" data-modal-overlay
+ *   内容层：class="modal-content-3 ..."
+ *   打开：showModal('弹窗id')
+ *   关闭：hideModal('弹窗id')
+ *
+ * 适用场景：确认框、CTA 弹窗
+ */
+
+/* 遮罩层 — 初始透明不可见，不阻挡鼠标事件 */
+.modal-overlay-3 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* 激活态 — 遮罩淡入 */
+.modal-overlay-3.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* 内容层 — 弹跳入场：先缩小到 60%，再弹性回弹到 100% */
+.modal-content-3 {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.15s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 激活态 — 弹簧回弹 */
+.modal-overlay-3.show .modal-content-3 {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 关闭态 — 轻微缩小再淡出（由移除 .show 触发过渡回初始态） */

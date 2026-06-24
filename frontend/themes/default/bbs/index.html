@@ -1,0 +1,184 @@
+<div class="forum-home">
+
+  <!-- 顶部横幅区 -->
+  <div class="banner-section">
+    <div class="carousel-wrapper">
+      {if $carousels}
+      {loop $carousels $slide}
+      <div class="carousel-slide{if $slide.active} active{/if}">
+        <a href="{$slide.link}"><img src="{$slide.image}" alt="{$slide.title}" /></a>
+      </div>
+      {/loop}
+      <div class="carousel-dots">
+        {loop $carousels $dot}
+        <span class="carousel-dot{if $dot.active} active{/if}"></span>
+        {/loop}
+      </div>
+      <span class="carousel-arrow prev">&lsaquo;</span>
+      <span class="carousel-arrow next">&rsaquo;</span>
+      {else}
+      <div class="carousel-placeholder">轮播图（后台可配置）</div>
+      {/if}
+    </div>
+
+    <div class="banner-right">
+      <div class="thumb-row">
+        {if $thumbnails}
+        {loop $thumbnails $thumb}
+        <a class="thumb-item" href="{$thumb.link}"><img src="{$thumb.image}" alt="{$thumb.title}" /></a>
+        {/loop}
+        {else}
+        <span class="thumb-item thumb-placeholder">缩略图</span>
+        <span class="thumb-item thumb-placeholder">缩略图</span>
+        <span class="thumb-item thumb-placeholder">缩略图</span>
+        {/if}
+      </div>
+      <div class="category-panel">
+        <div class="category-menu">
+          {loop $categories $cat}
+          <button class="cat-btn{if $cat.active} active{/if}" data-cat="{$cat.id}">{$cat.name}</button>
+          {/loop}
+        </div>
+        <div class="category-content">
+          {if $catPosts}
+          {loop $catPosts $post}
+          <a class="cat-post-item" href="{$post.url}">
+            <span class="cat-post-dot{if $post.active} active{/if}"></span>
+            <span class="cat-post-title">{$post.title}</span>
+          </a>
+          {/loop}
+          {else}
+          <div class="empty-hint">暂无内容</div>
+          {/if}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 内容区 -->
+  <div class="content-section">
+    <div class="main-content">
+
+      <div class="section-tabs">
+        <button class="section-tab{if $active_tab == 'discussion'} active{/if}" data-tab="discussion">综合讨论</button>
+        <button class="section-tab{if $active_tab == 'zones'} active{/if}" data-tab="zones">版块分区</button>
+      </div>
+
+      {if $active_tab == 'discussion'}
+      {themes bbs/partial_discussion.html}
+      {/if}
+
+      {if $active_tab == 'zones'}
+      {loop $zones $zone}
+      <div class="zone-section">
+        <div class="cat-header">
+          <div class="cat-header-left">
+            <h1 class="cat-title">{$zone.name}</h1>
+            <p class="cat-stats">
+              包含 {$zone.forum_count} 个子版块 · 主题 {$zone.total_topics} · 帖数 {$zone.total_posts}
+            </p>
+          </div>
+          <div class="cat-header-right">
+            <div class="cat-header-actions">
+              <button class="cat-btn-outline">简介</button>
+              <button class="cat-btn-primary">版规</button>
+            </div>
+            {if $zone.moderators}
+            <div class="cat-mod-inline">
+              <span class="cat-mod-label">版主</span>
+              {loop $zone.moderators $mod}
+              <a href="{$mod.url}" class="cat-mod-card cat-mod-card-sm">
+                <div class="cat-mod-avatar">{$mod.initial}</div>
+                <span class="cat-mod-name">{$mod.name}</span>
+              </a>
+              {/loop}
+            </div>
+            {/if}
+          </div>
+        </div>
+
+        <div class="cat-forum-grid">
+          {if $zone.forums}
+          {loop $zone.forums $forum}
+          <a href="{$forum.url}" class="cat-forum-card">
+            <div class="cat-forum-icon" style="background:{$forum.card_color}15;color:{$forum.card_color};">
+              {$forum.name_abbr}
+            </div>
+            <div class="cat-forum-body">
+              <h3 class="cat-forum-name">{$forum.name}</h3>
+              <p class="cat-forum-stats">
+                主题 {$forum.topics} · 帖数 {$forum.posts} · 今日 {$forum.today}
+              </p>
+              {if $forum.latest_title}
+              <p class="cat-forum-latest"><span>最新帖</span> {$forum.latest_title}</p>
+              {/if}
+            </div>
+            <div class="cat-forum-interact">
+              <span class="cat-interact-item">&#x1F4AC; {$forum.comments}</span>
+              <span class="cat-interact-item">&#x1F44D; {$forum.likes}</span>
+            </div>
+          </a>
+          {/loop}
+          {else}
+          <div class="empty-zone">暂无版块数据</div>
+          {/if}
+        </div>
+      </div>
+      {/loop}
+      {/if}
+
+    </div>
+
+    <!-- 侧边栏 -->
+    {if $sidebar_on}
+    <div class="bbs-sidebar">
+      <div class="sidebar-wrapper">
+        <div class="sidebar-section">
+          <p class="sidebar-title">版块导航</p>
+          {if $sections}
+          {loop $sections $section}
+          <a class="sidebar-nav-item{if $section.hot} hot{/if}" href="{$section.url}">
+            <span class="sidebar-nav-dot"></span>
+            {$section.name}
+            <span class="sidebar-nav-badge">{$section.count}</span>
+          </a>
+          {/loop}
+          {/if}
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-title">排行榜</p>
+          <div class="rank-tabs">
+            {if $rank_tabs}
+            {loop $rank_tabs $tab}
+            <button class="rank-tab-btn{if $tab.active} active{/if}" data-rank="{$tab.id}">{$tab.name}</button>
+            {/loop}
+            {/if}
+          </div>
+          {if $rankings}
+          {loop $rankings $user}
+          <div class="rank-item">
+            <span class="rank-num{if $user.rank <= 3} top{/if}">{$user.rank}</span>
+            <div class="rank-avatar">
+              {if $user.avatar}
+              <img src="{$user.avatar}" alt="{$user.name}" />
+              {else}
+              {$user.initial}
+              {/if}
+            </div>
+            <div class="rank-info">
+              <div class="rank-name">{$user.name}</div>
+              <div class="rank-score">{$user.score}</div>
+            </div>
+          </div>
+          {/loop}
+          {/if}
+        </div>
+
+        <div class="sidebar-footer">后台可设置开启/关闭</div>
+      </div>
+    </div>
+    {/if}
+  </div>
+
+</div>

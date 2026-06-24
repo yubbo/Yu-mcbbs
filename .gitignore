@@ -1,0 +1,30 @@
+# 环境配置（含敏感信息）
+.env
+.env.docker
+.env.local
+.env*.local
+
+# 前端依赖
+frontend/node_modules/
+frontend/.next/
+
+# 后端运行时数据（安装后自动生成）
+server/data/
+
+# 编译产物
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# 临时文件
+tmp/
+*.tmp
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

@@ -1,0 +1,58 @@
+# echov5-backend 默认配置文件
+# 所有配置项均可通过环境变量覆盖（详见 .env.example）
+
+# 系统安装状态（安装向导完成后自动改为 true）
+installed: false
+
+server:
+  port: ":8080"           # 服务监听地址
+  mode: "debug"           # 运行模式: debug | release | test
+  read_timeout: 30        # 读取超时（秒）
+  write_timeout: 30       # 写入超时（秒）
+
+database:
+  type: "mysql"
+  host: "127.0.0.1"       # 数据库主机 (环境变量: DB_HOST)
+  port: 3306              # 数据库端口 (环境变量: DB_PORT)
+  user: ""                # 数据库用户 (环境变量: DB_USER)
+  password: ""            # 数据库密码 (环境变量: DB_PASSWORD)
+  dbname: "gogogo"        # 数据库名 (环境变量: DB_NAME)
+  charset: "utf8mb4"      # 字符集
+  table_prefix: "yu_"
+  max_idle_conns: 10      # 最大空闲连接数
+  max_open_conns: 100     # 最大打开连接数
+  conn_max_lifetime: 3600 # 连接最大存活时间（秒）
+
+jwt:
+  secret: "change-me-in-production"  # JWT 签名密钥（生产环境必须更换）
+  expire_hours: 72                    # Token 过期时间（小时）
+  issuer: "echov5-backend"            # 签发者
+
+log:
+  level: "debug"          # 日志级别: debug | info | warn | error
+  file_path: ""           # 日志文件路径（为空则仅输出到控制台）
+  max_size: 100           # 日志文件最大大小（MB）
+  max_backups: 10         # 保留的旧日志文件数
+  max_age: 30             # 保留天数
+
+cors:
+  allow_origins:          # 允许的跨域来源
+    - "http://localhost:3000"
+    - "http://localhost:3001"
+  allow_methods:
+    - "GET"
+    - "POST"
+    - "PUT"
+    - "PATCH"
+    - "DELETE"
+    - "OPTIONS"
+  allow_headers:
+    - "Origin"
+    - "Content-Type"
+    - "Authorization"
+    - "X-Requested-With"
+
+# 外部资源路径（Docker 部署通过环境变量 THEMES_DIR / PLUGINS_DIR 覆盖）
+paths:
+  themes_dir: "/shared/themes"
+  plugins_dir: "/shared/plugins"

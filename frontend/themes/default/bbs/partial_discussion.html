@@ -1,0 +1,41 @@
+<!-- 综合讨论文章视图 -->
+{if $posts}
+{loop $posts $post}
+<div class="post-card">
+  <div class="post-main">
+    <div class="post-avatar">
+      {if $post.avatar}
+      <img src="{$post.avatar}" alt="{$post.author}" />
+      {else}
+      {$post.initial}
+      {/if}
+    </div>
+    <div class="post-body">
+      <p class="post-title"><a href="{$post.url}">{$post.title}</a></p>
+      <div class="post-meta">
+        <span>{$post.author}</span>
+        <span>{$post.time}</span>
+        <span>浏览 {$post.views}</span>
+      </div>
+      <p class="post-preview">{$post.preview}</p>
+      <div class="post-actions">
+        <button class="post-action-btn">
+          <span class="post-action-icon">&#x1F4AC;</span> {$post.comments} 评论
+        </button>
+        <button class="post-action-btn">
+          <span class="post-action-icon">&#x1F44D;</span> {$post.likes} 点赞
+        </button>
+        <button class="post-action-btn">
+          <span class="post-action-icon">&#x2B50;</span> 收藏
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{/loop}
+<div class="load-more">
+  <button class="load-more-btn">加载更多</button>
+</div>
+{else}
+<div class="empty-hint" style="padding:40px;">暂无帖子</div>
+{/if}

@@ -1,0 +1,88 @@
+<!-- themes/default/common/header.html — 公共页头 -->
+
+<header class="border-b border-zinc-200 bg-white sticky top-0 z-40">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3 lg:py-4">
+    <!-- Logo -->
+    <a href="{SITE_URL}" class="text-base sm:text-lg font-semibold text-zinc-900 no-underline shrink-0">{SITE_NAME}</a>
+
+    <!-- 导航 — 桌面端 -->
+    <nav class="hidden md:flex items-center gap-3 lg:gap-5 text-xs lg:text-sm flex-1 justify-center">
+      {loop $nav_visible_items $item}
+        <a href="{$item.href}" class="text-zinc-600 no-underline hover:text-zinc-900 transition-colors whitespace-nowrap">{$item.label}</a>
+      {/loop}
+      {if $nav_has_more}
+        <div class="relative group">
+          <span class="text-zinc-600 cursor-pointer hover:text-zinc-900 transition-colors select-none pb-2 whitespace-nowrap">更多 ▾</span>
+          <div class="absolute top-full left-0 right-0 h-2 hidden group-hover:block"></div>
+          <div class="absolute top-[calc(100%+0.5rem)] left-1/2 -translate-x-1/2 hidden group-hover:block z-50 rounded-lg border border-zinc-200 bg-white shadow-lg py-1 min-w-[120px]">
+            {loop $nav_more_items $item}
+              <a href="{$item.href}" class="block px-4 py-2 text-sm text-zinc-600 no-underline hover:bg-zinc-50 hover:text-zinc-900 transition-colors whitespace-nowrap">{$item.label}</a>
+            {/loop}
+          </div>
+        </div>
+      {/if}
+    </nav>
+
+    <!-- 右侧操作 -->
+    <div class="flex items-center gap-2 sm:gap-3 lg:gap-5 text-xs lg:text-sm shrink-0">
+      {if $is_logged_in}
+        <div class="relative group">
+          <div class="flex items-center gap-2 cursor-pointer select-none pb-2">
+            {if $user_avatar}
+            <img src="{$user_avatar}" alt="{$username}" class="size-7 rounded-full border border-zinc-200 object-cover" />
+            {else}
+            <div class="flex items-center justify-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-500">{$user_avatar_char}</div>
+            {/if}
+            <span class="text-xs text-zinc-600 hidden sm:inline">{$username}</span>
+            <span class="text-zinc-400 text-[10px] hidden sm:inline">▾</span>
+          </div>
+          <div class="absolute top-full left-0 right-0 h-2 hidden group-hover:block"></div>
+          <div class="absolute top-[calc(100%+0.5rem)] right-0 hidden group-hover:block z-50 rounded-lg border border-zinc-200 bg-white shadow-lg py-1 min-w-[140px]">
+            <div class="px-4 py-2 border-b border-zinc-100">
+              <p class="text-sm font-medium text-zinc-800">{$username}</p>
+              <p class="text-xs text-zinc-400 mt-0.5">已登录</p>
+            </div>
+            <a href="{SITE_URL}/user-panel" class="flex items-center gap-2 px-4 py-2 text-sm text-zinc-600 no-underline hover:bg-zinc-50 transition-colors">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              个人中心
+            </a>
+            {if $is_admin}
+            <a href="{SITE_URL}/users" class="flex items-center gap-2 px-4 py-2 text-sm text-zinc-600 no-underline hover:bg-zinc-50 transition-colors">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              后台管理
+            </a>
+            {/if}
+            <div class="border-t border-zinc-100 mt-1 pt-1">
+              <button onclick="window.location.href='{SITE_URL}/login'" class="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-zinc-500 hover:bg-red-50 hover:text-red-500 transition-colors">
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" strokeLinecap="round" strokeLinejoin="round"/><polyline points="16 17 21 12 16 7" strokeLinecap="round" strokeLinejoin="round"/><line x1="21" y1="12" x2="9" y2="12" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                退出登录
+              </button>
+            </div>
+          </div>
+        </div>
+      {/if}
+      {if $is_not_logged_in}
+        <a href="{SITE_URL}/login" class="rounded-lg bg-zinc-900 px-3 sm:px-4 py-1.5 text-xs font-medium text-white no-underline hover:bg-zinc-800 transition-colors whitespace-nowrap">登录</a>
+      {/if}
+
+      <!-- 移动端汉堡菜单 -->
+      <button class="md:hidden flex items-center justify-center size-8 rounded-lg hover:bg-zinc-100 transition-colors" onclick="document.getElementById('mobile-nav')?.classList.toggle('hidden')" aria-label="菜单">
+        <svg class="size-5 text-zinc-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 移动端下拉导航 -->
+  <div id="mobile-nav" class="hidden md:hidden border-t border-zinc-100 bg-white px-4 py-3 space-y-2">
+    {loop $nav_visible_items $item}
+      <a href="{$item.href}" class="block py-2 text-sm text-zinc-600 no-underline hover:text-zinc-900 transition-colors">{$item.label}</a>
+    {/loop}
+    {if $nav_has_more}
+      {loop $nav_more_items $item}
+        <a href="{$item.href}" class="block py-2 text-sm text-zinc-600 no-underline hover:text-zinc-900 transition-colors">{$item.label}</a>
+      {/loop}
+    {/if}
+  </div>
+</header>

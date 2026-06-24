@@ -1,0 +1,38 @@
+/**
+ * popup_effect_6 — 纯淡入淡出
+ *
+ * 用法：
+ *   遮罩层：class="modal-overlay-6 fixed inset-0 z-50 items-center justify-center bg-black/40" data-modal-overlay
+ *   内容层：class="modal-content-6 ..."
+ *   打开：showModal('弹窗id')
+ *   关闭：hideModal('弹窗id')
+ *
+ * 适用场景：最克制、低干扰的通知场景
+ */
+
+/* 遮罩层 — 初始透明不可见，不阻挡鼠标事件 */
+.modal-overlay-6 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* 激活态 — 遮罩淡入 */
+.modal-overlay-6.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* 内容层 — 纯透明，无位移无缩放 */
+.modal-content-6 {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+/* 激活态 — 淡入 */
+.modal-overlay-6.show .modal-content-6 {
+  opacity: 1;
+}

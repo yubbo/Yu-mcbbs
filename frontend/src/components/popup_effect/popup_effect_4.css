@@ -1,0 +1,42 @@
+/**
+ * popup_effect_4 — 底部滑入 + 淡入
+ *
+ * 用法：
+ *   遮罩层：class="modal-overlay-4 fixed inset-0 z-50 flex items-end justify-center bg-black/40" data-modal-overlay
+ *   内容层：class="modal-content-4 ..."
+ *   打开：showModal('弹窗id')
+ *   关闭：hideModal('弹窗id')
+ *
+ * 注意：遮罩层用 items-end 让内容贴底，而非默认的 items-center
+ *
+ * 适用场景：移动端底部面板、选择器、操作菜单
+ */
+
+/* 遮罩层 — 初始透明不可见，不阻挡鼠标事件 */
+.modal-overlay-4 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* 激活态 — 遮罩淡入 */
+.modal-overlay-4.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* 内容层 — 从底部外滑入 */
+.modal-content-4 {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 激活态 — 滑回原位 */
+.modal-overlay-4.show .modal-content-4 {
+  opacity: 1;
+  transform: translateY(0);
+}

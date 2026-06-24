@@ -1,0 +1,40 @@
+/**
+ * popup_effect_5 — 3D 翻转卡片
+ *
+ * 用法：
+ *   遮罩层：class="modal-overlay-5 fixed inset-0 z-50 items-center justify-center bg-black/40" data-modal-overlay
+ *   内容层：class="modal-content-5 ..."
+ *   打开：showModal('弹窗id')
+ *   关闭：hideModal('弹窗id')
+ *
+ * 适用场景：详情预览、卡片展开
+ */
+
+/* 遮罩层 — 初始透明不可见，不阻挡鼠标事件 */
+.modal-overlay-5 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* 激活态 — 遮罩淡入 */
+.modal-overlay-5.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* 内容层 — Y 轴翻转 90° + 透明，入场时翻转回正 */
+.modal-content-5 {
+  opacity: 0;
+  transform: perspective(800px) rotateY(90deg);
+  transition: opacity 0.2s ease, transform 0.4s ease;
+}
+
+/* 激活态 — 翻转回 0° */
+.modal-overlay-5.show .modal-content-5 {
+  opacity: 1;
+  transform: perspective(800px) rotateY(0deg);
+}

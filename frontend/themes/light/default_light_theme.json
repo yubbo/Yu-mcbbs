@@ -1,0 +1,11 @@
+{
+  "name": "light",
+  "version": "1.0.0",
+  "description": "轻量极简设计，适合个人博客与文档站点",
+  "author": "BBS CMS 官方",
+  "modules": [
+    "bbs"
+  ],
+  "templates": null,
+  "settings": null
+}

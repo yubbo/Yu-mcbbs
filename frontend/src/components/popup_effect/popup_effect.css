@@ -1,0 +1,176 @@
+/**
+ * popup_effect.css — 弹窗系统 6 种效果合集
+ *
+ * 包含 effect 1~6 的全部 CSS。全量引入后所有效果立即可用。
+ * 如需按需加载，也可单独引入 popup_effect_N.css。
+ *
+ *  1. 顶部滑入 (modal-overlay-1 / modal-content-1)
+ *  2. 淡入缩放 (modal-overlay-2 / modal-content-2)
+ *  3. 弹簧弹跳 (modal-overlay-3 / modal-content-3)
+ *  4. 底部滑入 (modal-overlay-4 / modal-content-4)
+ *  5. 3D 翻转   (modal-overlay-5 / modal-content-5)
+ *  6. 纯淡入淡出(modal-overlay-6 / modal-content-6)
+ *
+ * 使用：<link rel="stylesheet" href="{SITE_URL}/api/component-asset/popup_effect/popup_effect.css">
+ */
+
+/* ================================================================
+   popup_effect_1 — 顶部滑入 + 淡入
+   适用场景：通知条、操作提示
+   ================================================================ */
+
+.modal-overlay-1 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.modal-overlay-1.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.modal-content-1 {
+  opacity: 0;
+  transform: translateY(-60px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.modal-overlay-1.show .modal-content-1 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================================================================
+   popup_effect_2 — 淡入淡出 + 缩放弹出
+   适用场景：通用弹窗（推荐）
+   ================================================================ */
+
+.modal-overlay-2 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.modal-overlay-2.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.modal-content-2 {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.modal-overlay-2.show .modal-content-2 {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ================================================================
+   popup_effect_3 — 弹簧弹跳
+   适用场景：确认框、CTA 弹窗
+   ================================================================ */
+
+.modal-overlay-3 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.modal-overlay-3.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.modal-content-3 {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.15s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.modal-overlay-3.show .modal-content-3 {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ================================================================
+   popup_effect_4 — 底部滑入 + 淡入
+   注意：遮罩层需加 items-end 让内容贴底
+   适用场景：移动端底部面板、选择器、操作菜单
+   ================================================================ */
+
+.modal-overlay-4 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.modal-overlay-4.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.modal-content-4 {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.modal-overlay-4.show .modal-content-4 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================================================================
+   popup_effect_5 — 3D 翻转卡片
+   适用场景：详情预览、卡片展开
+   ================================================================ */
+
+.modal-overlay-5 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.modal-overlay-5.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.modal-content-5 {
+  opacity: 0;
+  transform: perspective(800px) rotateY(90deg);
+  transition: opacity 0.2s ease, transform 0.4s ease;
+}
+.modal-overlay-5.show .modal-content-5 {
+  opacity: 1;
+  transform: perspective(800px) rotateY(0deg);
+}
+
+/* ================================================================
+   popup_effect_6 — 纯淡入淡出
+   适用场景：最克制、低干扰的通知
+   ================================================================ */
+
+.modal-overlay-6 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.modal-overlay-6.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.modal-content-6 {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.modal-overlay-6.show .modal-content-6 {
+  opacity: 1;
+}

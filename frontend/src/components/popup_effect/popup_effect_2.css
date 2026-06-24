@@ -1,0 +1,38 @@
+/**
+ * popup_effect_2 — 淡入淡出 + 缩放弹出
+ *
+ * 用法：
+ *   遮罩层：class="modal-overlay-2 fixed inset-0 z-50 items-center justify-center bg-black/40" data-modal-overlay
+ *   内容层：class="modal-content-2 ..."
+ *   打开：showModal('弹窗id')
+ *   关闭：hideModal('弹窗id')
+ */
+
+/* 遮罩层 — 初始透明不可见，不阻挡鼠标事件 */
+.modal-overlay-2 {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* 激活态 — 完全可见，接收鼠标事件 */
+.modal-overlay-2.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* 内容层 — 缩小 + 透明隐藏，带弹性过渡 */
+.modal-content-2 {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* 激活态 — 弹回原始大小 */
+.modal-overlay-2.show .modal-content-2 {
+  opacity: 1;
+  transform: scale(1);
+}

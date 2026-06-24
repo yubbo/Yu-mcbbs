@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+/* ── popup_effect 弹窗动画系统（来自 mcyubbs）── */
+@import "../components/popup_effect/popup_effect.css";
+
+/* ── shadcn/ui CSS 变量 ── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0.042 265.755);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0.042 265.755);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0.042 265.755);
+  --destructive: oklch(0.637 0.237 25.331);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0.042 265.755);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* 全站背景图（模糊） — 由 framework.css 定义变量，LayoutShell/主题 CSS 可覆盖 */
+/* body::before 位于背景色之上、内容之下，支持 filter: blur() 模糊背景 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--site-bg-image);
+  background-repeat: var(--site-bg-repeat);
+  background-size: var(--site-bg-size);
+  background-position: var(--site-bg-position);
+  background-attachment: var(--site-bg-attachment);
+  filter: blur(var(--site-bg-blur, 0px));
+}
+
+/* ── Sonner Toast 美化 ── */
+.cn-toast {
+  border-radius: 12px !important;
+  border: 1px solid var(--border) !important;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.06),
+    0 1px 4px rgba(0, 0, 0, 0.04) !important;
+  padding: 12px 16px !important;
+  font-size: 13px !important;
+  backdrop-filter: blur(12px);
+}
+
+.cn-toast [data-title] {
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  color: var(--foreground) !important;
+}
+
+.cn-toast [data-description] {
+  font-size: 12px !important;
+  color: var(--muted-foreground) !important;
+  margin-top: 2px !important;
+}
+
+.cn-toast [data-icon] {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* toast 入场动画 */
+.cn-toast[data-expanded="true"] {
+  animation: toast-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 成功 toast 左边框 */
+.cn-toast[data-type="success"] {
+  border-left: 3px solid #10b981 !important;
+}
+/* 错误 toast 左边框 */
+.cn-toast[data-type="error"] {
+  border-left: 3px solid #ef4444 !important;
+}
+/* 警告 toast 左边框 */
+.cn-toast[data-type="warning"] {
+  border-left: 3px solid #f59e0b !important;
+}
+/* 信息 toast 左边框 */
+.cn-toast[data-type="info"] {
+  border-left: 3px solid #3b82f6 !important;
+}
+
+/* ── 安装引导动画 ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes finger-bounce {
+  0%, 100% { transform: translate(-50%, 0px); }
+  50% { transform: translate(-50%, -10px); }
+}
+
+/* ── 我的世界像素动画 ── */
+@keyframes cloud-drift {
+  from { transform: translateX(-80px); }
+  to { transform: translateX(440px); }
+}
+
+@keyframes bird-fly {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes animal-walk {
+  0%, 100% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+}
+
+@keyframes chicken-peck {
+  0%, 100% { transform: translateY(0px); }
+  30% { transform: translateY(-3px); }
+  60% { transform: translateY(2px); }
+}
+
+@keyframes pixel-bounce {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(10deg); }
+}
+
+/* ── 二次元卡片美少女 动画 ── */
+@keyframes sakura-fall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes sparkle-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes card-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(255, 182, 193, 0.6); box-shadow: 0 0 20px rgba(255, 105, 180, 0.2), 0 0 60px rgba(255, 105, 180, 0.1); }
+  50% { border-color: rgba(255, 105, 180, 0.9); box-shadow: 0 0 30px rgba(255, 105, 180, 0.4), 0 0 80px rgba(255, 20, 147, 0.2); }
+}
+
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.6) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.3) rotate(180deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes button-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 105, 180, 0.4), 0 4px 0 #c71585; }
+  50% { box-shadow: 0 0 30px rgba(255, 20, 147, 0.7), 0 6px 0 #c71585; }
+}
+
+@keyframes ribbon-wave {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-sakura { animation: sakura-fall linear infinite; }
+.animate-sparkle { animation: sparkle-pulse ease-in-out infinite; }
+.animate-card-float { animation: card-float 3s ease-in-out infinite; }
+.animate-border-glow { animation: border-glow 2.5s ease-in-out infinite; }
+.animate-star { animation: star-twinkle ease-in-out infinite; }
+.animate-shimmer { 
+  background-size: 200% auto;
+  animation: shimmer 2s linear infinite;
+}
+.animate-button-glow { animation: button-glow 2s ease-in-out infinite; }
+.animate-ribbon { animation: ribbon-wave 3s ease-in-out infinite; }
+.animate-fade-in { animation: fade-in-up 0.6s ease-out forwards; }
+
+/* -- 全局宽屏/窄屏模式 -- */
+html[data-layout-mode="wide"] .forum-home {
+  max-width: none;
+  padding: 20px 32px;
+}
+html[data-layout-mode="wide"] .PublicHeader > div,
+html[data-layout-mode="wide"] header .max-w-6xl {
+  max-width: none;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+html[data-layout-mode="wide"] footer .max-w-6xl {
+  max-width: none;
+}
+html[data-layout-mode="wide"] .max-w-5xl {
+  max-width: none;
+}

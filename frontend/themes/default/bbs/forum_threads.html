@@ -1,0 +1,47 @@
+<!-- themes/default/bbs/forum_threads.html — 版块帖子列表页模板 -->
+<div class="forum-home">
+  <div class="thread-breadcrumb">
+    <a href="/forum" class="crumb-link">论坛首页</a>
+    <span class="crumb-sep">/</span>
+    <span class="crumb-current">帖子列表</span>
+  </div>
+
+  <div class="thread-list">
+    {if $posts}
+    <div class="thread-items">
+      {loop $posts $post}
+      <a href="{$post.url}" class="thread-card" style="text-decoration:none">
+        {if $post.is_pinned}<span class="thread-pin-tag">置顶</span>{/if}
+        <div class="thread-body">
+          <h3 class="thread-title">{$post.title}</h3>
+          <p class="thread-preview">{$post.preview}</p>
+          <div class="thread-meta">
+            <span class="thread-author">{$post.author}</span>
+            <span class="thread-time">{$post.time}</span>
+            {if $post.last_reply}<span class="thread-last-reply">最后回复 {$post.last_reply}</span>{/if}
+          </div>
+        </div>
+        <div class="thread-stats">
+          <span title="回复">{$post.post_count}</span>
+          <span title="浏览">{$post.view_count}</span>
+          <span title="点赞">{$post.like_count}</span>
+        </div>
+      </a>
+      {/loop}
+    </div>
+
+    <!-- 分页 -->
+    <div class="thread-pagination">
+      {if $prev_page}
+      <a href="{$prev_page}" class="page-btn">« 上一页</a>
+      {/if}
+      <span class="page-info">{$page} / {$total_pages}</span>
+      {if $next_page}
+      <a href="{$next_page}" class="page-btn">下一页 »</a>
+      {/if}
+    </div>
+    {else}
+    <div class="thread-empty">暂无帖子</div>
+    {/if}
+  </div>
+</div>

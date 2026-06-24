@@ -1,0 +1,73 @@
+/*
+[name]黑夜模式[/name]
+[iconbgcolor]#222529[/iconbgcolor]
+Powered by www.comiis.com
+*/
+:root {
+--comiis-bodybg:#222529;
+--comiis-alink:#f8fafc;
+--comiis-ahot:#FF705d;
+--comiis-fa:#ffffff;
+--comiis-fb:#aaaaaa;
+--comiis-fc:#7f7f85;
+--comiis-fd:#595d69;
+--comiis-ff:#ffffff;
+--comiis-bga:#333b48;
+--comiis-bgb:#1a1d20;
+--comiis-bgc:#222529;
+--comiis-bgd:#453f3f;
+--comiis-bgf:#191b1d;
+--comiis-bordera:#222529;
+--comiis-borderb:#222529;
+--comiis-borderc:#222529;
+--comiis-borderd:#b05639;
+/* 新增 */
+--yu-btnbg: #155bd5;
+--yu-btntxt: #fff;
+--yu-border-top: #1e1e1e;
+--yu-tabletext: #fff;
+
+}
+body {background:var(--yu-bgimg-url-qihuan)}
+#toptb.comiis_headb_toptb {background:var(--comiis-bodybg)}
+@supports (((-webkit-backdrop-filter:saturate(180%) blur(6px)) or (backdrop-filter:saturate(180%) blur(6px))) or (-webkit-backdrop-filter:saturate(180%) blur(6px))) {#comiis_tnv {background:rgba(25,27,29,0.8)}}
+.comiis_i_listb li .kmfoot .kmbk {background:var(--comiis-bgc);color:var(--comiis-fc)}
+.comiis_i_listb li .kmfoot .kmbk:before, .vw .s {color:var(--comiis-fc)}
+.comiis_tbnva .tb a, .comiis_uhd_profile .kmgroup a, .pm_tac, .pbl {background:var(--comiis-bgc)}
+.comiis_rnav a {background:var(--comiis-bgf)}
+.tedt .bar, .tedt .area, .ftid a, .ftid a:hover, .ftid a:focus, .px, .pt, .ps, textarea, .tedt, #flw_post_subject, #flw_header .area, #vfastpost .comiis_vfastpost input, .mi #moodfm textarea, .mi .avatar img, .bartl, .dpbtn, .dopt a, .dopt a.dpbtn, .jump_bdl li {background-color:var(--comiis-borderc)}
+.comiis_headb_scbar .kmtxt {background-color:rgba(34,37,41,.8)}
+select, .dpbtn, .scbar_narrow #scbar_txt, #scbar_type, .comiis_headb_scbar .kmtxt:focus {background-color:var(--comiis-borderc) !important}
+.scbar_narrow #scbar_txt {border-right:1px solid var(--comiis-bgf)}
+.exfm .ftid a, .exfm .px, .exfm .pt, .exfm .ps, .exfm textarea, .jump_bdl .a a, .jump_bdl .a a:hover {background-color:var(--comiis-bgf) !important}
+.comiis_list_stylea li {border-bottom:1px solid var(--comiis-bordera)}
+.pg a, .pg strong, .pgb a, .pg label, #post_extra_tb label, #post_extra_tb label span {background-color:var(--comiis-borderb)}
+.pg strong, .pg a:hover, .pgb a:hover {background-color:var(--comiis-nvbg);border-color:var(--comiis-nvbg);color:var(--comiis-nvtxt)}
+.comiis_footb, .cmt .pts, .flw_autopt .pts, .pbl a:hover, .pbls a, .pbls a:hover {background:var(--comiis-bgf)}
+.comiis_footb_copy {background:var(--comiis-bodybg)}
+.mg_img {background:var(--comiis-fa)}
+.pc_inner i, .pc_inner span, .pc_inner span a, .pc_inner span em, .pc_inner span em.desc, .popuptext .pc_inner, .comiis_rbox_imglist li:first-child .kmtit {color:var(--comiis-fa)}
+.tip_c, .tip .tip_c p {color:var(--comiis-fd)}
+.fwinmask .fwin {box-shadow:0 0 16px rgba(0,0,0,.35)}
+.pbl, .pbl li, #toptb {border-color:var(--comiis-bgf)}
+.psth {background:var(--comiis-color);color:var(--comiis-ff)}
+.icon_ring {border:none;margin-top:5px}
+.ratl .xw1 .xi1 {background:var(--comiis-ahot);color:var(--comiis-ff)}
+#scbar_hot a {color:var(--comiis-fd)}
+.comiis_taglist a {background:var(--comiis-bodybg) !important}
+.pl .tindex h3 {border-color:var(--comiis-bgf)}
+.side_btn a {background:var(--comiis-bgc)}
+#comiis_rnav a span.comiis_tip_text {background-color:var(--comiis-fd)}
+.comiis_tzgl {background:var(--comiis-fd)}
+.comiis_ft {background:var(--comiis-bodybg)}
+#ft, #ft a, .comiis_ft, .comiis_ft a, .comiis_ft .pipe, .comiis_footb_copy, .comiis_footb_copy a, .comiis_footb_copy span.pipe {color:var(--comiis-fd)}
+.comiis_footb_info .info_box a:hover, .footer_copy a:hover, #ft a:hover, .comiis_ft a:hover {color:var(--comiis-ahover)}
+.card .comiis_user_card .o a[href*="op=del"], .card .comiis_user_card .o a[href*="op=del"]:hover, a.pnc[href*="op=del"], a.pnc[href*="op=del"]:hover, .comiis_lzinfo_one .km_btn a[href*="op=del"], .comiis_lzinfo_one .km_btn a[href*="op=del"]:hover {background:var(--comiis-fd) !important}
+
+
+/* 新增 */
+.cscrolltop .child {background:var(--yu-bgcolor);}
+.fa-eject:before {background:var(--yu-bgcolor);}
+.cft{background: var(--yu-cft-bgcolor);border-top: var(--yu-border-top);}
+.cft dd{color: var(--yu-tabletext);border-right: 1px solid #f2f2f2; padding-bottom: 10px;}
+

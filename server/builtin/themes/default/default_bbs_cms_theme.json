@@ -1,0 +1,63 @@
+{
+  "_convention": "文件名格式: default_*_theme.json，* 为自定义标识，框架通过正则 default_.+_theme\\.json 识别",
+
+  "name": "default",
+  "version": "1.0.0",
+  "description": "BBS CMS 默认主题 - 开发样板",
+  "author": "BBS CMS",
+  "license": "MIT",
+
+  "modules": ["cms", "bbs"],
+
+  "templates": {
+    "home": "index.html",
+    "post": "cms/post.html",
+    "list": "cms/list.html",
+    "forum_home": "bbs/index.html",
+    "forum_topic": "bbs/topic.html",
+    "forum_list": "bbs/list.html"
+  },
+
+  "settings": {
+    "primary_color": "#18181b",
+    "font_family": "system-ui"
+  },
+
+  "setting_schema": [
+    { "key": "primary_color", "type": "color", "label": "主色调", "default": "#18181b" },
+    { "key": "accent_color",  "type": "color", "label": "强调色", "default": "#3b82f6" },
+    { "key": "bg_color",     "type": "color", "label": "背景色", "default": "#ffffff" },
+    { "key": "font_family",  "type": "select", "label": "字体", "default": "system-ui",
+      "options": [
+        { "label": "系统默认", "value": "system-ui" },
+        { "label": "思源黑体", "value": "'Source Han Sans SC', sans-serif" },
+        { "label": "微软雅黑", "value": "'Microsoft YaHei', sans-serif" }
+      ]
+    },
+    { "key": "radius", "type": "select", "label": "圆角风格", "default": "md",
+      "options": [
+        { "label": "直角", "value": "sharp" },
+        { "label": "适中", "value": "md" },
+        { "label": "大圆角", "value": "lg" }
+      ]
+    },
+    { "key": "show_hero", "type": "toggle", "label": "显示首页横幅", "default": "true" }
+  ],
+
+  "variables": {
+    "_comment": "CSS 自定义变量，通过 variables.css 注入到 :root。修改后需同步更新 themes/default/modules/style/variables.css",
+    "spacing_sm": "8px",
+    "spacing_md": "16px",
+    "spacing_lg": "20px",
+    "spacing_xl": "28px",
+    "radius_sm": "6px",
+    "radius_md": "10px",
+    "radius_lg": "14px",
+    "font_size_xs": "11px",
+    "font_size_sm": "12px",
+    "font_size_base": "14px",
+    "font_size_lg": "16px",
+    "font_size_xl": "20px",
+    "font_size_2xl": "24px"
+  }
+}

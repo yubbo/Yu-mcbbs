@@ -1,0 +1,10 @@
+{
+  "name": "sign",
+  "title": "每日签到",
+  "version": "1.0.0",
+  "description": "用户每日签到获取积分，连续签到额外奖励",
+  "author": "BBS CMS",
+  "hooks": [
+    "header_nav"
+  ]
+}

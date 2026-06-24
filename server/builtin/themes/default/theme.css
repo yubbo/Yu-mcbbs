@@ -1,0 +1,19 @@
+/**
+ * theme.css — 默认主题覆盖层
+ * 位置: themes/default/theme.css
+ *
+ * 框架默认值已在 src/core/theme/framework.css 中完整定义。
+ * 本文件仅覆盖与框架不同的部分。
+ * 自定义主题只需新建同名文件，写入差异值即可。
+ *
+ * 三层级联加载顺序: framework.css → 默认 theme.css → 激活主题 theme.css
+ */
+
+/* 示例：如需自定义，取消注释并修改
+:root {
+  --color-primary: #custom;
+  --forum-max-width: 1600px;
+}
+*/
+
+/* 预留给主题自定义样式 */
