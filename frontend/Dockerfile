@@ -25,3 +25,5 @@ COPY --from=builder /app/src/templates ./src/templates
 
 EXPOSE 3000
 CMD ["node", "server.js"]
+
+# force rebuild
