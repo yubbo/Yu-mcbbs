@@ -10,7 +10,7 @@
 
 ## 快速部署（Docker 一键启动）
 
-> **一次配置，一键拉取镜像即可运行。** 无需安装 Go、Node.js，也无需编译。
+> **一行命令跑起来。** 无需安装 Go、Node.js，无需编译，无需写配置文件。
 
 ### 前提条件
 
@@ -24,45 +24,35 @@ git clone https://github.com/yubbo/Yu-mcbbs.git
 cd Yu-mcbbs
 ```
 
-### 第二步：配置环境变量
+### 第二步：启动（一行命令搞定）
 
 ```bash
-cp .env.docker.example .env.docker
+DB_ROOT_PASSWORD=你的数据库密码 JWT_SECRET=你的随机密钥 docker compose up -d
 ```
 
-编辑 `.env.docker`，**务必修改以下三项**：
+把 `你的数据库密码` 和 `你的随机密钥` 换成自己的值即可，其他不用管。
 
-```ini
-# ⚠️ 必须修改！
-DB_ROOT_PASSWORD=你的数据库root密码
-DB_PASSWORD=你的数据库普通用户密码
-JWT_SECRET=一个随机字符串（至少32位）
-```
+> 上面这行 `docker compose up -d` 会自动拉取前后端镜像、初始化数据库、启动所有服务，整个过程约 30 秒。
 
-### 第三步：启动（拉取镜像即可运行）
+**三种传参方式，任选一种：**
 
 ```bash
+# 方式一：命令行直接传（推荐，最简单）
+DB_ROOT_PASSWORD=mypass JWT_SECRET=xxx docker compose up -d
+
+# 方式二：先 export 再启动
+export DB_ROOT_PASSWORD=mypass
+export JWT_SECRET=xxx
+docker compose up -d
+
+# 方式三：传统 .env.docker 文件
+cp .env.docker.example .env.docker   # 编辑改密码
 docker compose up -d
 ```
 
-首次启动会自动完成：
+### 第三步：访问安装向导
 
-1. 从 GitHub Container Registry 拉取前后端预构建镜像（**无需编译**）
-2. 拉取 MySQL 镜像
-3. 初始化数据库（GORM 自动建表）
-4. 初始化默认主题和插件
-
-整个过程约 30 秒 - 1 分钟（取决于网络速度）。
-
-### 第四步：访问安装向导
-
-启动完成后，打开浏览器访问：
-
-```
-http://你的服务器IP:3000
-```
-
-你会看到 **安装引导页面**，按提示填写信息即可。
+打开浏览器访问 `http://你的服务器IP:3000`，看到 **安装引导页面**，按提示填写站点信息即可。
 
 ### 各服务地址
 
