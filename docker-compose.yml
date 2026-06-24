@@ -25,7 +25,7 @@ services:
       timeout: 5s
       retries: 10
 
-  # ── 后端（闭源预编译 Go 二进制，从镜像直接拉取） ──
+  # ── 后端（从镜像直接拉取，无需编译） ──
   backend:
     image: ghcr.io/yubbo/yu-mcbbs-backend:latest
     container_name: bbs-cms-backend
@@ -41,9 +41,9 @@ services:
     volumes:
       - app_data:/shared
 
-  # ── 前端（Next.js 开源） ──
+  # ── 前端（在服务器本地构建，10分钟内完成） ──
   frontend:
-    image: ghcr.io/yubbo/yu-mcbbs-frontend:latest
+    build: ./frontend
     container_name: bbs-cms-frontend
     restart: unless-stopped
     depends_on:
