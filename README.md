@@ -1,36 +1,87 @@
 # Yu-mcbbs — BBS CMS 论坛内容管理系统
 
-## 技术栈
-
-| 层 | 技术 | 说明 |
-|---|------|------|
-| 后端 | Go (闭源预编译) | REST API，端口 8080 |
-| 前端 | Next.js 16 + React 19 + Tailwind v4 | 开源，端口 3000 |
-| 数据库 | MySQL 8.0 | — |
+**零配置，粘贴即用。** 后端闭源 · 前端开源。
 
 ---
 
-## 部署（二选一）
+## 部署
 
-### 方式一：1Panel 面板（推荐，零配置）
-
-如果你的服务器有 [1Panel](https://1panel.cn/)：
+### 1Panel 面板（推荐）
 
 1. 1Panel → 「容器」→ 「编排」→ 「创建编排」
-2. 粘贴项目根目录的 `docker-compose.yml` 全部内容
+2. 名称填 `bbs-cms`，粘贴以下内容：
+
+```yaml
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: bbs-cms-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: yu-mcbbs-2024
+      MYSQL_DATABASE: bbs_cms
+    command: >
+      --innodb-buffer-pool-size=32M
+      --innodb-log-buffer-size=4M
+      --performance-schema=0
+      --skip-log-bin
+      --max-connections=30
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    image: ghcr.io/yubbo/yu-mcbbs-backend:latest
+    container_name: bbs-cms-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      THEMES_DIR: /shared/themes
+      PLUGINS_DIR: /shared/plugins
+    ports:
+      - "8080:8080"
+    volumes:
+      - app_data:/shared
+
+  frontend:
+    image: ghcr.io/yubbo/yu-mcbbs-frontend:latest
+    container_name: bbs-cms-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      API_BACKEND_URL: http://backend:8080
+    ports:
+      - "3000:3000"
+    volumes:
+      - app_data:/app/themes
+
+volumes:
+  mysql_data:
+  app_data:
+```
+
 3. 点击「确定」→ 「启动」
-4. 浏览器访问 `http://你的IP:3000`，进入安装引导页
-5. 按提示填写站点信息，完成！
+4. 访问 `http://你的IP:3000` → 进入安装引导 → 按提示填完 → 完成！
 
-> **不需要修改任何配置，直接粘贴启动即可。**
+> 不需要 clone、不需要改配置、不需要设置环境变量。粘贴即用。
 
-### 方式二：命令行 Docker
+### 命令行 Docker
 
 ```bash
 git clone https://github.com/yubbo/Yu-mcbbs.git
 cd Yu-mcbbs
 docker compose up -d
-# 访问 http://你的IP:3000，按安装引导填写即可
 ```
 
 ---
