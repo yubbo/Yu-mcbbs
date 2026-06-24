@@ -21,8 +21,7 @@ jobs:
 
       - name: 构建后端镜像
         working-directory: server
-        run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest .
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest .
 
       - name: 登录 GitHub Container Registry
         uses: docker/login-action@v3
@@ -34,6 +33,13 @@ jobs:
       - name: 推送后端镜像
         run: docker push ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
 
+      - name: 设为公开
+        run: |
+          PACKAGE_ID=$(gh api "/users/${{ github.repository_owner }}/packages/container/yu-mcbbs-backend" --jq '.id')
+          echo '{"visibility":"public"}' | gh api --method PATCH "/user/packages/container/yu-mcbbs-backend" --input -
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   frontend:
     runs-on: ubuntu-latest
     permissions:
@@ -44,8 +50,7 @@ jobs:
 
       - name: 构建前端镜像
         working-directory: frontend
-        run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest .
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest .
 
       - name: 登录 GitHub Container Registry
         uses: docker/login-action@v3
@@ -56,3 +61,10 @@ jobs:
 
       - name: 推送前端镜像
         run: docker push ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
+
+      - name: 设为公开
+        run: |
+          PACKAGE_ID=$(gh api "/users/${{ github.repository_owner }}/packages/container/yu-mcbbs-frontend" --jq '.id')
+          echo '{"visibility":"public"}' | gh api --method PATCH "/user/packages/container/yu-mcbbs-frontend" --input -
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

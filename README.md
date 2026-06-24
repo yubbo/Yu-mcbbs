@@ -201,7 +201,7 @@ docker compose up -d         # 重启服务
 | 后端 | `ghcr.io/yubbo/yu-mcbbs-backend:latest` |
 | 前端 | `ghcr.io/yubbo/yu-mcbbs-frontend:latest` |
 
-镜像在每次 push 到 main 分支时自动构建，无需手动操作。
+镜像在每次 push 到 main 分支时自动构建并设为公开，用户可直接拉取。
 
 ---
 
